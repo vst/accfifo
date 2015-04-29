@@ -1,0 +1,31 @@
+################
+# Django Stuff #
+################
+
+*.log
+*.pot
+*.pyc
+/local_settings.py
+
+###############
+# OTHER STUFF #
+###############
+
+*~
+*\#*
+*.py[co]
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+sdist
+develop-eggs
+.installed.cfg
+pip-log.txt
+.coverage
+.tox
+*.mo
+.mr.developer.cfg
+tmp/
