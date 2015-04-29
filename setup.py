@@ -20,7 +20,7 @@ REQUIRED_LIBRARIES = []
 ## Setup now:
 setup(
     name="accfifo",
-    version="0.1",
+    version="0.1dev",
     description="A FIFO accounting calculator",
     long_description=README,
     classifiers=[
