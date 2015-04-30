@@ -1,0 +1,11 @@
+VERS: 2015-04-30 ------- release/0.1
+
+    * 2015-04-30 f64ad20 Version bumped to 0.1 (vst@vsthost.com)
+    * 2015-04-30 d2a92db Getting ready to submit to PyPI (vst@vsthost.com)
+    * 2015-04-30 4738f38 Added manifest file (vst@vsthost.com)
+    * 2015-04-30 4ae2950 Removing the redundant module file (vst@vsthost.com)
+    * 2015-04-29 f93a785 Development version set to 0.1dev (vst@vsthost.com)
+    * 2015-04-29 5b2256c Added travis build status badge (vst@vsthost.com)
+    * 2015-04-29 9c1ff50 Added simple usage and license information (vst@vsthost.com)
+    * 2015-04-29 46ef457 Initial code commit (vst@vsthost.com)
+    * 2015-04-29 7928fbe Initial commit (vst@vsthost.com)
