@@ -281,6 +281,8 @@ class FIFO(object):
 
 
 if __name__ == "__main__":
+    ## NOTE: Not for production purposes.
+    ##
     ## Consume a CSV file of entries and calculate FIFO
     ## accounting. First import libraries:
     import sys
