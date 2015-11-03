@@ -40,15 +40,19 @@ class Entry(object):
     Defines an accounting entry.
     """
 
-    def __init__(self, quantity, price, **kwargs):
+    def __init__(self, quantity, price, factor=1, **kwargs):
         """
         Initializes an entry object with quantity, price and arbitrary
         data associated with the entry to be used post-fifo-accounting
         analysis purposes.
+
+        Note the factor parameter. This prameter is applied to the
+        price.
         """
         ## Save data slots:
         self.quantity = quantity
         self.price = price
+        self.factor = factor
         self.data = kwargs
 
     def __repr__(self):
@@ -71,7 +75,7 @@ class Entry(object):
         return self.quantity == 0
 
     def copy(self, quantity=None):
-        return Entry(quantity or self.quantity, self.price, **self.data.copy())
+        return Entry(quantity or self.quantity, self.price, self.factor, **self.data.copy())
 
 
 class FIFO(object):
@@ -124,12 +128,27 @@ class FIFO(object):
         return sum([s.quantity * s.price for s in self.inventory])
 
     @property
+    def valuation_factored(self):
+        """
+        Returns the inventory valuation which is factored.
+        """
+        return sum([s.quantity * s.price * s.factor for s in self.inventory])
+
+    @property
     def avgcost(self):
         """
         Returns the average cost of the inventory.
         """
         ## If we don't have any stock, simply return None, else average:
         return None if self._balance == 0 else (self.valuation / self._balance)
+
+    @property
+    def avgcost_factored(self):
+        """
+        Returns the average cost of the inventory which is factored.
+        """
+        ## If we don't have any stock, simply return None, else average:
+        return None if self._balance == 0 else (self.valuation_factored / self._balance)
 
     @property
     def runtime(self):
@@ -291,17 +310,19 @@ if __name__ == "__main__":
     ## Run a CSV file of entries and see the results if argument provided:
     if len(sys.argv) > 1:
         ## Read entries:
-        entries = [Entry(float(line[0]), float(line[1])) for line in csv.reader(open(sys.argv[1]))]
+        entries = [Entry(float(line[0]), float(line[1]), float(line[2]) if len(line) > 2 else 1) for line in csv.reader(open(sys.argv[1]))]
 
         ## Run fifo:
         fifo = FIFO(entries)
 
         ## Print output:
-        print "Available Stock : ", fifo.stock
-        print "Stock Valuation : ", fifo.valuation
-        print "Average Cost    : ", fifo.avgcost
-        print "Trace Length    : ", len(fifo.trace)
-        print "Total Runtime   : ", fifo.runtime
+        print "Available Stock          : ", fifo.stock
+        print "Stock Valuation          : ", fifo.valuation
+        print "Factored Average Cost    : ", fifo.avgcost
+        print "Factored Stock Valuation : ", fifo.valuation_factored
+        print "Average Cost             : ", fifo.avgcost_factored
+        print "Trace Length             : ", len(fifo.trace)
+        print "Total Runtime            : ", fifo.runtime
 
         ## Print trace:
         if not (len(sys.argv) > 2 and sys.argv[2] == "-q"):
