@@ -31,8 +31,8 @@
 Computes the FIFO accounting valuation and stock inventory.
 """
 
-from collections import deque
 import datetime
+from collections import deque
 
 
 class Entry(object):
@@ -97,8 +97,7 @@ class FIFO(object):
         ## Save data slots:
         self._entries = entries or []
 
-        ## Declare and initialize private fields to be used during
-        ## computing:
+        ## Declare and initialize private fields to be used during computing:
         self._balance = 0
         self.inventory = deque()
         self.trace = []
@@ -316,15 +315,15 @@ if __name__ == "__main__":
         fifo = FIFO(entries)
 
         ## Print output:
-        print "Available Stock          : ", fifo.stock
-        print "Stock Valuation          : ", fifo.valuation
-        print "Factored Average Cost    : ", fifo.avgcost
-        print "Factored Stock Valuation : ", fifo.valuation_factored
-        print "Average Cost             : ", fifo.avgcost_factored
-        print "Trace Length             : ", len(fifo.trace)
-        print "Total Runtime            : ", fifo.runtime
+        print("Available Stock          : ", fifo.stock)
+        print("Stock Valuation          : ", fifo.valuation)
+        print("Factored Average Cost    : ", fifo.avgcost)
+        print("Factored Stock Valuation : ", fifo.valuation_factored)
+        print("Average Cost             : ", fifo.avgcost_factored)
+        print("Trace Length             : ", len(fifo.trace))
+        print("Total Runtime            : ", fifo.runtime)
 
         ## Print trace:
         if not (len(sys.argv) > 2 and sys.argv[2] == "-q"):
             for element in fifo.trace:
-                print "    ", ",".join(["(%s)" % (i,) for i in element])
+                print("    ", ",".join(["(%s)" % (i,) for i in element]))
