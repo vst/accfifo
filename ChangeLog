@@ -1,5 +1,12 @@
-VERS: 2015-11-03 ------- release/0.1.1
+VERS: 2016-06-13 ------- release/0.1.2
 
+    * 2016-06-13 5ddb6e7 [release] Version bumped to 0.1.2 (vst@vsthost.com)
+    * 2016-06-13 9834b6b [feature] Enabling Python 3 compatibility (vst@vsthost.com)
+    * 2015-11-03 e489027 [chore] Development version bumped to 0.1.2dev (vst@vsthost.com)
+
+VERS: 2015-11-03 7adfc00 release/0.1.1 (vst@vsthost.com)
+
+    * 2015-11-03 4501fc9 [release] Change log updated (vst@vsthost.com)
     * 2015-11-03 66005cd [release] Version bumped to 0.1.1 (vst@vsthost.com)
     * 2015-11-03 db3399c [feature] Added price factor for factored valuations and average costs (vst@vsthost.com)
     * 2015-11-03 2aa5bfc [chore] Development version bumped to 0.1.1dev (vst@vsthost.com)
