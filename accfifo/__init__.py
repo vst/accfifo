@@ -138,6 +138,25 @@ class FIFO(object):
         return sum([s.quantity * s.price * s.factor for s in self.inventory])
 
     @property
+    def profit_and_loss(self):
+        """
+        Returns the realized profit and loss.
+        """
+        return sum([e.price * e.quantity for entries_lst in self.trace for e in entries_lst])
+
+    @property
+    def profit_and_loss_factored(self):
+        """
+        Returns the realized profit and loss.
+        """
+        return sum(
+            [e.price * e.quantity * e. factor
+             for entries_lst in self.trace
+             for e in entries_lst
+             ]
+        )
+
+    @property
     def avgcost(self):
         """
         Returns the average cost of the inventory.
