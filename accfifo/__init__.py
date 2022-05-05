@@ -74,6 +74,10 @@ class Entry(object):
     def zero(self):
         return self.quantity == 0
 
+    @property
+    def value(self):
+        return self.quantity * self.price * self.factor
+
     def copy(self, quantity=None):
         return Entry(quantity or self.quantity, self.price, self.factor, **self.data.copy())
 
