@@ -1,6 +1,5 @@
 from accfifo import Entry
 from accfifo import FIFO
-from decimal import Decimal
 import unittest
 
 
