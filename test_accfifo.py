@@ -1,6 +1,5 @@
 from accfifo import Entry
 from accfifo import FIFO
-from decimal import Decimal
 import unittest
 
 
@@ -23,6 +22,9 @@ class TestFIFO(unittest.TestCase):
         ## There is no trace:
         self.assertTrue(len(fifo.trace) == 0)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
+
         ## There is no stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -42,6 +44,9 @@ class TestFIFO(unittest.TestCase):
 
         ## There is no trace as there are no closing entries:
         self.assertTrue(len(fifo.trace) == 0)
+
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
 
         ## There is stock in the inventory:
         self.assertTrue(fifo.stock, 100)
@@ -64,6 +69,9 @@ class TestFIFO(unittest.TestCase):
         ## There is no trace as there are no closing entries:
         self.assertTrue(len(fifo.trace) == 0)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
+
         ## There is stock in the inventory:
         self.assertTrue(fifo.stock, 200)
 
@@ -84,6 +92,9 @@ class TestFIFO(unittest.TestCase):
 
         ## There is no trace as there are no closing entries:
         self.assertTrue(len(fifo.trace) == 0)
+
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
 
         ## There is stock in the inventory:
         self.assertTrue(fifo.stock, -100)
@@ -106,6 +117,9 @@ class TestFIFO(unittest.TestCase):
         ## There is no trace as there are no closing entries:
         self.assertTrue(len(fifo.trace) == 0)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
+
         ## There is stock in the inventory:
         self.assertTrue(fifo.stock, -200)
 
@@ -126,6 +140,9 @@ class TestFIFO(unittest.TestCase):
 
         ## There is a trace as all the stock is sold out:
         self.assertTrue(len(fifo.trace) == 1)
+
+        ## There is no profit/loss is equal to zero:
+        self.assertTrue(fifo.profit_and_loss == 0)
 
         ## There is no stock in the inventory:
         self.assertEqual(fifo.stock, 0)
@@ -167,6 +184,9 @@ class TestFIFO(unittest.TestCase):
         ## There is a trace as all the stock is sold out:
         self.assertTrue(len(fifo.trace) == 2)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
+
         ## There is no stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -207,6 +227,9 @@ class TestFIFO(unittest.TestCase):
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 1)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
+
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, -100)
 
@@ -227,6 +250,9 @@ class TestFIFO(unittest.TestCase):
 
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 1)
+
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 0)
 
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 100)
@@ -249,6 +275,9 @@ class TestFIFO(unittest.TestCase):
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 2)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == -250)
+
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -268,6 +297,10 @@ class TestFIFO(unittest.TestCase):
 
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 2)
+
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == 250)
+
 
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
@@ -289,6 +322,9 @@ class TestFIFO(unittest.TestCase):
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 2)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == -150)
+
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -308,6 +344,9 @@ class TestFIFO(unittest.TestCase):
 
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 3)
+
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == -130)
 
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
@@ -329,6 +368,9 @@ class TestFIFO(unittest.TestCase):
         ## There is a trace as some stock entries are closed:
         self.assertTrue(len(fifo.trace) == 3)
 
+        ## There is no profit and no loss:
+        self.assertTrue(fifo.profit_and_loss == -170)
+
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -340,16 +382,19 @@ class TestFIFO(unittest.TestCase):
         fifo = FIFO([Entry(60, 10), Entry(10, 12), Entry(-50, 10)])
         self.assertEqual(fifo.stock, 20)
         self.assertEqual(fifo.avgcost, 11)
+        self.assertEqual(fifo.profit_and_loss,0)
 
         ## Create the FIFO accounting, check the stock and the average cost:
         fifo = FIFO([Entry(60, 10), Entry(10, 12), Entry(-80, 10)])
         self.assertEqual(fifo.stock, -10)
         self.assertEqual(fifo.avgcost, 10)
+        self.assertEqual(fifo.profit_and_loss, 20)
 
         ## Create the FIFO accounting, check the stock and the average cost:
         fifo = FIFO([Entry(60, 10), Entry(-10, 12), Entry(-20, 10), Entry(50, 12), Entry(-60, 14), Entry(10, 21)])
         self.assertEqual(fifo.stock, 30)
         self.assertEqual(fifo.avgcost, 15)
+        self.assertEqual(fifo.profit_and_loss, -200)
 
         ## Let's do a handful one:
         fifo = FIFO([Entry(20, 10), Entry(32, 7), Entry(97, 6), Entry(17, 2), Entry(14, 0),
@@ -360,6 +405,7 @@ class TestFIFO(unittest.TestCase):
                      Entry(50, 7), Entry(-82, 10), Entry(47, 9), Entry(72, 10), Entry(40, 1)])
         self.assertEqual(fifo.stock, 286)
         self.assertEqual(fifo.avgcost, 8)
+        self.assertEqual(fifo.profit_and_loss, -788)
 
         # Close the handful one:
         fifo = FIFO([Entry(20, 10), Entry(32, 7), Entry(97, 6), Entry(17, 2), Entry(14, 0),
@@ -371,6 +417,7 @@ class TestFIFO(unittest.TestCase):
                      Entry(-286, 8)])
         self.assertEqual(fifo.stock, 0)
         self.assertIsNone(fifo.avgcost)
+        self.assertEqual(fifo.profit_and_loss, -788)
 
 
 if __name__ == "__main__":

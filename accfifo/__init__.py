@@ -74,6 +74,10 @@ class Entry(object):
     def zero(self):
         return self.quantity == 0
 
+    @property
+    def value(self):
+        return self.quantity * self.price * self.factor
+
     def copy(self, quantity=None):
         return Entry(quantity or self.quantity, self.price, self.factor, **self.data.copy())
 
@@ -132,6 +136,25 @@ class FIFO(object):
         Returns the inventory valuation which is factored.
         """
         return sum([s.quantity * s.price * s.factor for s in self.inventory])
+
+    @property
+    def profit_and_loss(self):
+        """
+        Returns the realized profit and loss.
+        """
+        return sum([e.price * e.quantity for entries_lst in self.trace for e in entries_lst])
+
+    @property
+    def profit_and_loss_factored(self):
+        """
+        Returns the realized profit and loss.
+        """
+        return sum(
+            [e.price * e.quantity * e. factor
+             for entries_lst in self.trace
+             for e in entries_lst
+             ]
+        )
 
     @property
     def avgcost(self):
