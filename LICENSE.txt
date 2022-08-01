@@ -1,6 +1,6 @@
 This works is licensed under BSD 2-Clause License
 
-Copyright (c) 2013-2015, Vehbi Sinan Tunalioglu <vst@vsthost.com>
+Copyright (c) 2013-2022, Vehbi Sinan Tunalioglu <vst@vsthost.com>
 
 All rights reserved.
 
