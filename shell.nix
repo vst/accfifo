@@ -16,6 +16,7 @@ let
 in
 pkgs.mkShell {
   buildInputs = [
+    pkgs.git-chglog
     python-with-packages
   ];
 }
