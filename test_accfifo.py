@@ -1,6 +1,6 @@
-from accfifo import Entry
-from accfifo import FIFO
 import unittest
+
+from accfifo import FIFO, Entry
 
 
 class TestFIFO(unittest.TestCase):
@@ -301,7 +301,6 @@ class TestFIFO(unittest.TestCase):
         ## There is no profit and no loss:
         self.assertTrue(fifo.profit_and_loss == 250)
 
-
         ## There is some stock in the inventory:
         self.assertEqual(fifo.stock, 0)
 
@@ -382,7 +381,7 @@ class TestFIFO(unittest.TestCase):
         fifo = FIFO([Entry(60, 10), Entry(10, 12), Entry(-50, 10)])
         self.assertEqual(fifo.stock, 20)
         self.assertEqual(fifo.avgcost, 11)
-        self.assertEqual(fifo.profit_and_loss,0)
+        self.assertEqual(fifo.profit_and_loss, 0)
 
         ## Create the FIFO accounting, check the stock and the average cost:
         fifo = FIFO([Entry(60, 10), Entry(10, 12), Entry(-80, 10)])
@@ -391,30 +390,95 @@ class TestFIFO(unittest.TestCase):
         self.assertEqual(fifo.profit_and_loss, 20)
 
         ## Create the FIFO accounting, check the stock and the average cost:
-        fifo = FIFO([Entry(60, 10), Entry(-10, 12), Entry(-20, 10), Entry(50, 12), Entry(-60, 14), Entry(10, 21)])
+        fifo = FIFO(
+            [
+                Entry(60, 10),
+                Entry(-10, 12),
+                Entry(-20, 10),
+                Entry(50, 12),
+                Entry(-60, 14),
+                Entry(10, 21),
+            ]
+        )
         self.assertEqual(fifo.stock, 30)
         self.assertEqual(fifo.avgcost, 15)
         self.assertEqual(fifo.profit_and_loss, -200)
 
         ## Let's do a handful one:
-        fifo = FIFO([Entry(20, 10), Entry(32, 7), Entry(97, 6), Entry(17, 2), Entry(14, 0),
-                     Entry(-50, 9), Entry(-59, 6), Entry(-50, 8), Entry(63, 10), Entry(-31, 6),
-                     Entry(-21, 1), Entry(-36, 10), Entry(-18, 2), Entry(91, 2), Entry(85, 4),
-                     Entry(-81, 1), Entry(33, 2), Entry(45, 4), Entry(-18, 4), Entry(-33, 7),
-                     Entry(-47, 3), Entry(-49, 7), Entry(73, 3), Entry(79, 10), Entry(3, 5),
-                     Entry(50, 7), Entry(-82, 10), Entry(47, 9), Entry(72, 10), Entry(40, 1)])
+        fifo = FIFO(
+            [
+                Entry(20, 10),
+                Entry(32, 7),
+                Entry(97, 6),
+                Entry(17, 2),
+                Entry(14, 0),
+                Entry(-50, 9),
+                Entry(-59, 6),
+                Entry(-50, 8),
+                Entry(63, 10),
+                Entry(-31, 6),
+                Entry(-21, 1),
+                Entry(-36, 10),
+                Entry(-18, 2),
+                Entry(91, 2),
+                Entry(85, 4),
+                Entry(-81, 1),
+                Entry(33, 2),
+                Entry(45, 4),
+                Entry(-18, 4),
+                Entry(-33, 7),
+                Entry(-47, 3),
+                Entry(-49, 7),
+                Entry(73, 3),
+                Entry(79, 10),
+                Entry(3, 5),
+                Entry(50, 7),
+                Entry(-82, 10),
+                Entry(47, 9),
+                Entry(72, 10),
+                Entry(40, 1),
+            ]
+        )
         self.assertEqual(fifo.stock, 286)
         self.assertEqual(fifo.avgcost, 8)
         self.assertEqual(fifo.profit_and_loss, -788)
 
         # Close the handful one:
-        fifo = FIFO([Entry(20, 10), Entry(32, 7), Entry(97, 6), Entry(17, 2), Entry(14, 0),
-                     Entry(-50, 9), Entry(-59, 6), Entry(-50, 8), Entry(63, 10), Entry(-31, 6),
-                     Entry(-21, 1), Entry(-36, 10), Entry(-18, 2), Entry(91, 2), Entry(85, 4),
-                     Entry(-81, 1), Entry(33, 2), Entry(45, 4), Entry(-18, 4), Entry(-33, 7),
-                     Entry(-47, 3), Entry(-49, 7), Entry(73, 3), Entry(79, 10), Entry(3, 5),
-                     Entry(50, 7), Entry(-82, 10), Entry(47, 9), Entry(72, 10), Entry(40, 1),
-                     Entry(-286, 8)])
+        fifo = FIFO(
+            [
+                Entry(20, 10),
+                Entry(32, 7),
+                Entry(97, 6),
+                Entry(17, 2),
+                Entry(14, 0),
+                Entry(-50, 9),
+                Entry(-59, 6),
+                Entry(-50, 8),
+                Entry(63, 10),
+                Entry(-31, 6),
+                Entry(-21, 1),
+                Entry(-36, 10),
+                Entry(-18, 2),
+                Entry(91, 2),
+                Entry(85, 4),
+                Entry(-81, 1),
+                Entry(33, 2),
+                Entry(45, 4),
+                Entry(-18, 4),
+                Entry(-33, 7),
+                Entry(-47, 3),
+                Entry(-49, 7),
+                Entry(73, 3),
+                Entry(79, 10),
+                Entry(3, 5),
+                Entry(50, 7),
+                Entry(-82, 10),
+                Entry(47, 9),
+                Entry(72, 10),
+                Entry(40, 1),
+                Entry(-286, 8),
+            ]
+        )
         self.assertEqual(fifo.stock, 0)
         self.assertIsNone(fifo.avgcost)
         self.assertEqual(fifo.profit_and_loss, -788)

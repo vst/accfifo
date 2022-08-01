@@ -79,7 +79,9 @@ class Entry(object):
         return self.quantity * self.price * self.factor
 
     def copy(self, quantity=None):
-        return Entry(quantity or self.quantity, self.price, self.factor, **self.data.copy())
+        return Entry(
+            quantity or self.quantity, self.price, self.factor, **self.data.copy()
+        )
 
 
 class FIFO(object):
@@ -142,7 +144,9 @@ class FIFO(object):
         """
         Returns the realized profit and loss.
         """
-        return sum([e.price * e.quantity for entries_lst in self.trace for e in entries_lst])
+        return sum(
+            [e.price * e.quantity for entries_lst in self.trace for e in entries_lst]
+        )
 
     @property
     def profit_and_loss_factored(self):
@@ -150,10 +154,11 @@ class FIFO(object):
         Returns the realized profit and loss.
         """
         return sum(
-            [e.price * e.quantity * e. factor
-             for entries_lst in self.trace
-             for e in entries_lst
-             ]
+            [
+                e.price * e.quantity * e.factor
+                for entries_lst in self.trace
+                for e in entries_lst
+            ]
         )
 
     @property
@@ -296,7 +301,9 @@ class FIFO(object):
             ## | negative | sell  | Keep removing |
             ##
             ## Let's do this:
-            if (self._balance >= 0 and entry.buy) or (self._balance <= 0 and entry.sell):
+            if (self._balance >= 0 and entry.buy) or (
+                self._balance <= 0 and entry.sell
+            ):
                 ## Yes, we will push the entry to the inventory as is:
                 self._push(entry)
             ## Good, we will now proceed with the more complicated
@@ -326,13 +333,18 @@ if __name__ == "__main__":
     ##
     ## Consume a CSV file of entries and calculate FIFO
     ## accounting. First import libraries:
-    import sys
     import csv
+    import sys
 
     ## Run a CSV file of entries and see the results if argument provided:
     if len(sys.argv) > 1:
         ## Read entries:
-        entries = [Entry(float(line[0]), float(line[1]), float(line[2]) if len(line) > 2 else 1) for line in csv.reader(open(sys.argv[1]))]
+        entries = [
+            Entry(
+                float(line[0]), float(line[1]), float(line[2]) if len(line) > 2 else 1
+            )
+            for line in csv.reader(open(sys.argv[1]))
+        ]
 
         ## Run fifo:
         fifo = FIFO(entries)
