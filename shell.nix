@@ -8,6 +8,10 @@ let
     ## Development dependencies:
     black
     isort
+
+    ## Packaging dependencies:
+    build
+    twine
   ]);
 in
 pkgs.mkShell {
