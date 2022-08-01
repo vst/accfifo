@@ -7,7 +7,7 @@ from distutils.core import setup
 ## Setup now:
 setup(
     name="accfifo",
-    version="0.1.2",
+    version="0.2.0",
     description="A FIFO accounting calculator",
     long_description=open(
         os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.rst")
